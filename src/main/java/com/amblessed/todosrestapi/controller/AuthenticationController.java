@@ -10,7 +10,7 @@ package com.amblessed.todosrestapi.controller;
 
 
 import com.amblessed.todosrestapi.request.AuthenticationRequest;
-import com.amblessed.todosrestapi.request.AuthenticationResponse;
+import com.amblessed.todosrestapi.response.AuthenticationResponse;
 import com.amblessed.todosrestapi.request.RegisterRequest;
 import com.amblessed.todosrestapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;

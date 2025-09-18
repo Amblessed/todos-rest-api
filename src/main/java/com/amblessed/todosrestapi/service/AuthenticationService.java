@@ -10,7 +10,7 @@ package com.amblessed.todosrestapi.service;
 
 
 import com.amblessed.todosrestapi.request.AuthenticationRequest;
-import com.amblessed.todosrestapi.request.AuthenticationResponse;
+import com.amblessed.todosrestapi.response.AuthenticationResponse;
 import com.amblessed.todosrestapi.request.RegisterRequest;
 
 public interface AuthenticationService {

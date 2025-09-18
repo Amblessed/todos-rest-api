@@ -6,6 +6,7 @@ package com.amblessed.todosrestapi.exception;
  * @Created: 07-Sep-25
  */
 
+import com.amblessed.todosrestapi.response.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
@@ -14,13 +15,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -102,16 +106,30 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ProblemDetail handleAccessDenied() {
+    public ProblemDetail handleAccessDenied(Exception exception) {
         Map<String, Object> map = new HashMap<>();
         map.put("timestamp", LocalDateTime.now().toString());
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
         problemDetail.setType(URI.create("http://localhost:8080/api/v1/common-errors"));
         problemDetail.setTitle(HttpStatus.FORBIDDEN.getReasonPhrase());
-        problemDetail.setDetail("You are not authorized to access this resource.");
+        //problemDetail.setDetail("You are not authorized to access this resource.");
+        problemDetail.setDetail(exception.getMessage());
         problemDetail.setProperties(map);
         return problemDetail;
     }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ErrorResponse> handleResponseStatusException(ResponseStatusException exception) {
+
+        HttpStatusCode statusCode = exception.getStatusCode();
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(statusCode.value());
+        errorResponse.setMessage(exception.getMessage());
+        errorResponse.setTimestamp(LocalDateTime.now().toString());
+        return new ResponseEntity<>(errorResponse, statusCode);
+    }
+
+
 
     @ExceptionHandler(AuthenticationException.class)
     public ProblemDetail handleAuthentication() {

@@ -9,10 +9,12 @@ package com.amblessed.todosrestapi.service;
  */
 
 
-import com.amblessed.todosrestapi.request.UserResponse;
+import com.amblessed.todosrestapi.request.PasswordChangeRequest;
+import com.amblessed.todosrestapi.response.UserResponse;
 
 public interface UserService {
 
     UserResponse getUserInfo();
     void deleteUser();
+    void changePassword(PasswordChangeRequest passwordChangeRequest);
 }
