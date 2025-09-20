@@ -1,6 +1,6 @@
 # Todos REST API
 
-A simple but production‑ready RESTful API for managing a **to‑do list**. Built with Java / Spring Boot, this project implements standard CRUD operations for todos, robust test automation, and continuous integration. Designed for learning, sharing, and real‑world usage.
+A simple but production‑ready RESTful API for managing a **to‑do list**. Built with Java / Spring Boot, this project implements standard CRUD operations for todos. Designed for learning, sharing, and real‑world usage.
 
 ---
 
