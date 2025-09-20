@@ -65,3 +65,21 @@ SPRING_DATASOURCE_USERNAME=your_db_user
 SPRING_DATASOURCE_PASSWORD=your_db_password
 SPRING_JPA_HIBERNATE_DDL_AUTO=update
 SERVER_PORT=8080
+```
+
+## API Endpoints
+
+Here are the REST endpoints available and how to use them:
+| Method           | Endpoint      | Description             | Body / Params Example                                        | Success Response                                         |
+| ---------------- | ------------- | ----------------------- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| `GET`            | `/todos`      | Get all todos           | —                                                            | `200 OK`, list of todos                                  |
+| `GET`            | `/todos/{id}` | Get a single todo by ID | Path param: `id`                                             | `200 OK`, todo object / `404 Not Found`                  |
+| `POST`           | `/todos`      | Create a new todo       | JSON body: `{ "task": "Buy groceries", "completed": false }` | `201 Created`, created todo object                       |
+| `PUT` or `PATCH` | `/todos/{id}` | Update an existing todo | JSON with fields to update (e.g. `task`, `completed`)        | `200 OK`, updated object / `404 Not Found`               |
+| `DELETE`         | `/todos/{id}` | Remove a todo           | Path param: `id`                                             | `204 No Content` or `200 OK` depending on implementation |
+
+
+## License
+
+Distributed under the MIT License. See LICENSE for more information.
+
